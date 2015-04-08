@@ -9,13 +9,13 @@ function mat4::mul_vec(%m, %v) {
     %w = getWord(%v, 3);
 
     return
-        getWord(%m,  0) * %x + getWord(%m,  1) * %y + getWord(%m,  2) * %z + getWord(%m,  3) * %w SPC
-        getWord(%m,  4) * %x + getWord(%m,  5) * %y + getWord(%m,  6) * %z + getWord(%m,  7) * %w SPC
-        getWord(%m,  8) * %x + getWord(%m,  9) * %y + getWord(%m, 10) * %z + getWord(%m, 11) * %w SPC
-        getWord(%m, 12) * %x + getWord(%m, 13) * %y + getWord(%m, 14) * %z + getWord(%m, 15) * %w;
+    getWord(%m, 0) * %x + getWord(%m, 4) * %y + getWord(%m,  8) * %z + getWord(%m, 12) * %w SPC
+    getWord(%m, 1) * %x + getWord(%m, 5) * %y + getWord(%m,  9) * %z + getWord(%m, 13) * %w SPC
+    getWord(%m, 2) * %x + getWord(%m, 6) * %y + getWord(%m, 10) * %z + getWord(%m, 14) * %w SPC
+    getWord(%m, 3) * %x + getWord(%m, 7) * %y + getWord(%m, 11) * %z + getWord(%m, 15) * %w;
 }
 
-function mat4::mul_mat(%m, %n) {
+function mat4::mul_mat(%a, %b) {
     %a00 = getWord(%a,  0); %a01 = getWord(%a,  1); %a02 = getWord(%a,  2); %a03 = getWord(%a,  3);
     %a10 = getWord(%a,  4); %a11 = getWord(%a,  5); %a12 = getWord(%a,  6); %a13 = getWord(%a,  7);
     %a20 = getWord(%a,  8); %a21 = getWord(%a,  9); %a22 = getWord(%a, 10); %a23 = getWord(%a, 11);
@@ -68,11 +68,11 @@ function mat4::inverse(%m) {
     %b11 = %a22 * %a33 - %a23 * %a32;
 
     %det = %b00 * %b11 - %b01 * %b10 + %b02 * %b09 + %b03 * %b08 - %b04 * %b07 + %b05 * %b06;
-    
+
     if (%det == 0) {
         return "";
     }
-    
+
     %det = 1 / %det;
 
     return
@@ -94,12 +94,12 @@ function mat4::inverse(%m) {
         (%a20 * %b03 - %a21 * %b01 + %a22 * %b00) * %det;
 }
 
-function mat4::translate(%m, %v) {
+function mat4::translate(%a, %v) {
     %x = getWord(%v, 0);
     %y = getWord(%v, 1);
     %z = getWord(%v, 2);
 
-    return getWords(%m, 0, 11) SPC
+    return getWords(%a, 0, 11) SPC
         getWord(%a, 0) * %x + getWord(%a, 4) * %y + getWord(%a,  8) * %z + getWord(%a, 12) SPC
         getWord(%a, 1) * %x + getWord(%a, 5) * %y + getWord(%a,  9) * %z + getWord(%a, 13) SPC
         getWord(%a, 2) * %x + getWord(%a, 6) * %y + getWord(%a, 10) * %z + getWord(%a, 14) SPC
@@ -111,7 +111,7 @@ function mat4::rotate(%a, %axis, %rads) {
     %y = getWord(%axis, 1);
     %z = getWord(%axis, 2);
     %len = vectorLen(%axis);
-    
+
     if (%len == 0) {
         return %a;
     }
@@ -149,8 +149,8 @@ function mat4::rotate(%a, %axis, %rads) {
         getWords(%a, 12, 15);
 }
 
-function mat4::project(%aspect, %field, %near, %far) {
-    %f = 1 / mTan(%fov / 2);
+function mat4::perspective(%aspect, %field, %near, %far) {
+    %f = 1 / mTan(%field / 2);
     %nf = 1 / (%near - %far);
     return
         %f / %aspect SPC "0 0 0" SPC

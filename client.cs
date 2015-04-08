@@ -1,22 +1,22 @@
 exec("./mat4.cs");
+exec("./test.cs");
 
 function getProjectionMatrix() {
-    %transform = ServerConnection.getControlObject.getTransform();
+    %transform = ServerConnection.getControlObject().getTransform();
     %resInfo = getRes();
-    
-    %view = mat4::identity();
-    %view = mat4::translate(%view, getWords(%transform, 0, 2));
-    %view = mat4::rotate(%view, getWords(%transform, 3, 5), getWord(%transform, 6));
 
+    %matRotate    = mat4::rotate(mat4::identity(), getWords(%transform, 3, 5), getWord(%transform, 6));
+    %matTranslate = mat4::translate(mat4::identity(), vectorScale(%transform, -1));
+    %view = mat4::mul_mat(%matRotate, %matTranslate);
+    
     %proj = mat4::perspective(
         getWord(%resInfo, 0) / getWord(%resInfo, 1),
-        ServerConnection.getControlCameraFov(),
+        mDegToRad(ServerConnection.getControlCameraFov()),
         $pref::TS::screenError,
         $Pref::visibleDistanceMax
     );
 
-    // Is this in the right order?
-    return mat4::mul_mat(%view, %proj);
+    return mat4::mul_mat(%proj, %view);
 }
 
 function projectWorldToScreen(%world) {
