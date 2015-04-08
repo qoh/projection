@@ -2,6 +2,8 @@ exec("./mat4.cs");
 
 function getProjectionMatrix() {
     %transform = ServerConnection.getControlObject.getTransform();
+    %resInfo = getRes();
+    
     %view = mat4::identity();
     %view = mat4::translate(%view, getWords(%transform, 0, 2));
     %view = mat4::rotate(%view, getWords(%transform, 3, 5), getWord(%transform, 6));
