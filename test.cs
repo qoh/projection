@@ -12,12 +12,15 @@ function test(%what) {
     %centerX = getWord(%res, 0) / 2;
     %centerY = getWord(%res, 1) / 2;
 
-    %screen = projectWorldToScreen(%what.getPosition() SPC 1);
-    // Why are these coordinates in XZY order!?
-    %x = %centerX + getWord(%screen, 0) / $pi * %centerX;
-    %z = getWord(%screen, 1);
-    %y = %centerY + getWord(%screen, 2) / $pi * %centerY;
+    %world = %what.getPosition();
+    %world = getWord(%world, 0) SPC getWord(%world, 2) SPC -getWord(%world,1) SPC "1";
 
-    MarkerTest.resize(%x, %y, 4, 4);
+    %screen = projectWorldToScreen(%world);
+    %w = getWord(%screen, 3);
+    %x = getWord(%screen, 0)/%w;
+    %y = getWord(%screen, 1)/%w;
+    %z = getWord(%screen, 2)/%w;
+
+    MarkerTest.resize(%x * %centerX + %centerX, -%y * %centerY + %centerY, 4, 4);
     $test = schedule(16, 0, test, %what);
 }

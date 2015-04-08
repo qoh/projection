@@ -150,11 +150,11 @@ function mat4::rotate(%a, %axis, %rads) {
 }
 
 function mat4::perspective(%aspect, %field, %near, %far) {
-    %f = 1 / mTan(%field / 2);
-    %nf = 1 / (%near - %far);
+    %f = mTan(%field / 2);
+    %fn = 1 / (%far - %near);
     return
-        %f / %aspect SPC "0 0 0" SPC
-        "0" SPC %f SPC "0 0" SPC
-        "0 0" SPC (%far + %near) * %nf SPC "-1" SPC
-        "0 0" SPC (2 * %far * %near) * %nf SPC "0";
+        1/%f SPC "0 0 0" SPC
+        "0" SPC 1/(%f/%aspect) SPC "0 0" SPC
+        "0 0" SPC -(%far + %near) * %fn SPC "-1" SPC
+        "0 0" SPC (-2 * %far * %near) * %fn SPC "0";
 }
