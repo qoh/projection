@@ -9,8 +9,6 @@ function getProjectionMatrix() {
     %view = mat4::identity();
     %view = mat4::rotate(%view, getWords(%transform, 3, 5), getWord(%transform, 6));
     %view = mat4::translate(%view, vectorScale(%transform, -1));
-    %view = mat4::mul_mat(%view,
-                          "1 0 0 0" SPC "0 0 1 0" SPC "0 -1 0 0" SPC "0 0 0 1");
     %view = mat4::mul_mat("1 0 0 0" SPC "0 0 -1 0" SPC "0 1 0 0" SPC "0 0 0 1",
                           %view);
     // Perspective projection matrix

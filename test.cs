@@ -12,8 +12,7 @@ function test(%what) {
     %centerX = getWord(%res, 0) / 2;
     %centerY = getWord(%res, 1) / 2;
 
-    %world = %what.getPosition();
-    %world = getWord(%world, 0) SPC getWord(%world, 2) SPC -getWord(%world,1) SPC "1";
+    %world = %what.getPosition() SPC "1";
 
     %screen = projectWorldToScreen(%world);
     %w = getWord(%screen, 3);
