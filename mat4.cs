@@ -8,12 +8,12 @@ function mat4::mul_vec(%m, %v) {
 function mat4::mul_mat(%m, %n) {
     %a00 = getWord(%a,  0); %a01 = getWord(%a,  1); %a02 = getWord(%a,  2); %a03 = getWord(%a,  3);
     %a10 = getWord(%a,  4); %a11 = getWord(%a,  5); %a12 = getWord(%a,  6); %a13 = getWord(%a,  7);
-    %a20 = getWord(%a,  8); %a21 = getWord(%a,  9); %a22 = getWord(%a,  10); %a23 = getWord(%a, 11);
+    %a20 = getWord(%a,  8); %a21 = getWord(%a,  9); %a22 = getWord(%a, 10); %a23 = getWord(%a, 11);
     %a30 = getWord(%a, 12); %a31 = getWord(%a, 13); %a32 = getWord(%a, 14); %a33 = getWord(%a, 15);
 
     %b00 = getWord(%b,  0); %b01 = getWord(%b,  1); %b02 = getWord(%b,  2); %b03 = getWord(%b,  3);
     %b10 = getWord(%b,  4); %b11 = getWord(%b,  5); %b12 = getWord(%b,  6); %b13 = getWord(%b,  7);
-    %b20 = getWord(%b,  8); %b21 = getWord(%b,  9); %b22 = getWord(%b,  10); %b23 = getWord(%b, 11);
+    %b20 = getWord(%b,  8); %b21 = getWord(%b,  9); %b22 = getWord(%b, 10); %b23 = getWord(%b, 11);
     %b30 = getWord(%b, 12); %b31 = getWord(%b, 13); %b32 = getWord(%b, 14); %b33 = getWord(%b, 15);
 
     return
@@ -50,7 +50,7 @@ function mat4::translate(%m, %v) {
         getWord(%a, 0) * %x + getWord(%a, 4) * %y + getWord(%a,  8) * %z + getWord(%a, 12) SPC
         getWord(%a, 1) * %x + getWord(%a, 5) * %y + getWord(%a,  9) * %z + getWord(%a, 13) SPC
         getWord(%a, 2) * %x + getWord(%a, 6) * %y + getWord(%a, 10) * %z + getWord(%a, 14) SPC
-        getWord(%a, 3) * %x + getWord(%a, 7) * %y + getWord(%a, 11) * %z + get word(%a, 15);
+        getWord(%a, 3) * %x + getWord(%a, 7) * %y + getWord(%a, 11) * %z + getWord(%a, 15);
 }
 
 function mat4::rotate(%m, %axis, %rads) {
