@@ -48,7 +48,7 @@ function mat4::mul_mat(%a, %b) {
         %b30*%a03 + %b31*%a13 + %b32*%a23 + %b33*%a33;
 }
 
-function mat4::inverse(%m) {
+function mat4::inverse(%a) {
     %a00 = getWord(%a,  0); %a01 = getWord(%a,  1); %a02 = getWord(%a,  2); %a03 = getWord(%a,  3);
     %a10 = getWord(%a,  4); %a11 = getWord(%a,  5); %a12 = getWord(%a,  6); %a13 = getWord(%a,  7);
     %a20 = getWord(%a,  8); %a21 = getWord(%a,  9); %a22 = getWord(%a, 10); %a23 = getWord(%a, 11);

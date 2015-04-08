@@ -9,15 +9,15 @@ function test(%what) {
     cancel($test);
 
     %res = getRes();
-    %resW = getWord(%res, 0);
-    %resH = getWord(%res, 1);
-    %centerX = %resW / 2;
-    %centerY = %resH / 2;
+    %centerX = getWord(%res, 0) / 2;
+    %centerY = getWord(%res, 1) / 2;
 
     %screen = projectWorldToScreen(%what.getPosition() SPC 1);
-    %x = %centerX + getWord(%screen, 0) / 3 * %centerX;
-    %y = %centerY + getWord(%screen, 2) / 3 * %centerY;
+    // Why are these coordinates in XZY order!?
+    %x = %centerX + getWord(%screen, 0) / $pi * %centerX;
+    %z = getWord(%screen, 1);
+    %y = %centerY + getWord(%screen, 2) / $pi * %centerY;
 
     MarkerTest.resize(%x, %y, 4, 4);
-    $test = schedule(60, 0, test, %what);
+    $test = schedule(16, 0, test, %what);
 }
