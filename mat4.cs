@@ -3,6 +3,16 @@ function mat4::identity() {
 }
 
 function mat4::mul_vec(%m, %v) {
+    %x = getWord(%v, 0);
+    %y = getWord(%v, 1);
+    %z = getWord(%v, 2);
+    %w = getWord(%v, 3);
+
+    return
+        getWord(%m,  0) * %x + getWord(%m,  1) * %y + getWord(%m,  2) * %z + getWord(%m,  3) * %w SPC
+        getWord(%m,  4) * %x + getWord(%m,  5) * %y + getWord(%m,  6) * %z + getWord(%m,  7) * %w SPC
+        getWord(%m,  8) * %x + getWord(%m,  9) * %y + getWord(%m, 10) * %z + getWord(%m, 11) * %w SPC
+        getWord(%m, 12) * %x + getWord(%m, 13) * %y + getWord(%m, 14) * %z + getWord(%m, 15) * %w;
 }
 
 function mat4::mul_mat(%m, %n) {
