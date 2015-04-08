@@ -11,8 +11,8 @@ function getProjectionMatrix() {
     %proj = mat4::perspective(
         getWord(%resInfo, 0) / getWord(%resInfo, 1),
         ServerConnection.getControlCameraFov(),
-        "need to find near plane",
-        "need to find view distance"
+        $pref::TS::screenError,
+        $Pref::visibleDistanceMax
     );
 
     // Is this in the right order?
