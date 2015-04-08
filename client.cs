@@ -4,7 +4,7 @@ function getProjectionMatrix() {
     %transform = ServerConnection.getControlObject.getTransform();
     %view = mat4::identity();
     %view = mat4::translate(%view, getWords(%transform, 0, 2));
-    %view = mat4::rotate(%view, getWords(%transform, 3, 5), getWord(%transform, 5));
+    %view = mat4::rotate(%view, getWords(%transform, 3, 5), getWord(%transform, 6));
 
     %proj = mat4::perspective(
         getWord(%resInfo, 0) / getWord(%resInfo, 1),
